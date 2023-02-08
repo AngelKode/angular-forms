@@ -1,0 +1,76 @@
+<h2>Template: <small>switches</small></h2>
+
+<form class="mb-3" [formGroup]="switchForm" (ngSubmit)="savePerson()">
+  <div class="row mb-3">
+
+    <label class="col-sm-3 col-form-label">Género</label>
+    <div class="col-sm-9">
+      <div class="form-check">
+        <input class="form-check-input"
+               type="radio"
+               value="M"
+               id="radioDefault"
+               formControlName="gender">
+        <label class="form-check-label" for="radioDefault">
+          Masculino
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input"
+               type="radio"
+               value="F"
+               id="radioDefault2"
+               formControlName="gender">
+        <label class="form-check-label" for="radioDefault2">
+          Femenino
+        </label>
+      </div>
+    </div>
+
+    <label class="col-sm-3 col-form-label">Notificaciones</label>
+    <div class="col-sm-9" style="display: flex;justify-content: start;align-items: center">
+      <div class="form-check form-switch">
+        <input class="form-check-input"
+               type="checkbox"
+               role="switch"
+               id="flexSwitchCheckDefault"
+               formControlName="notifications">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Quiero recibir notificaciones</label>
+      </div>
+    </div>
+
+    <label class="col-sm-3 col-form-label">Términos y condiciones</label>
+    <div class="col-sm-9" style="display: flex;justify-content: start;align-items: center">
+      <div class="form-check">
+        <input class="form-check-input"
+               type="checkbox"
+               value=""
+               required
+               id="flexCheck"
+               formControlName="termsConditions">
+        <label class="form-check-label" for="flexCheck">
+          He leído los términos y condiciones
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button type="submit"
+              class="btn btn-primary float-start">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>
+
+<h4>Valor del Formulario</h4>
+<pre>{{switchForm.value | json}}</pre>
+
+<h4>Valido</h4>
+<pre>{{switchForm.valid}}</pre>
+
+<h4>Persona</h4>
+<pre>{{persona | json}}</pre>

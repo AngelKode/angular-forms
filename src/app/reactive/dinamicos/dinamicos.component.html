@@ -1,0 +1,86 @@
+<h2>Reactivos : <small>dinámicos</small></h2>
+<hr>
+
+<form [formGroup]="dinamicForm"
+      (ngSubmit)="saveData()"
+      autocomplete="off">
+
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Nombre: </label>
+    <div class="col-sm-9">
+      <input class="form-control"
+             placeholder="Nombre"
+             formControlName="nombre">
+      <span class="form-text text-danger"
+            *ngIf="isInputValid('nombre')">
+        Este campo es obligatorio
+      </span>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Agregar: </label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <input class="form-control"
+               placeholder="Agregar juego favorito"
+               [formControl]="newGameData"
+               (keyup.enter)="addGame()">
+        <button class="btn btn-outline-primary"
+                (click)="addGame()"
+                type="button">
+          Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Favoritos </label>
+    <div class="col-sm-9" formArrayName="gamesData">
+
+      <div class="input-group mb-2"
+           *ngFor="let favorito of getGamesData.controls; let i = index">
+        <input class="form-control"
+               [formControlName]="i">
+        <button class="btn btn-outline-danger"
+                type="button"
+                (click)="deleteGame(i)">
+          Eliminar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-primary float-end"
+              type="submit">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>
+
+<h3>Datos del formulario</h3>
+<div class="row">
+  <div class="col">
+    <span><b>Valid <em>(el formulario es válido)</em></b></span>
+    <pre>{{dinamicForm.valid | json}}</pre>
+
+    <span><b>Touched <em>(el usuario ha tocado el formulario)</em></b></span>
+    <pre>{{dinamicForm.touched | json}}</pre>
+
+    <span><b>Pristine <em>(no se ha cambiado ningún valor desde el inicio)</em></b></span>
+    <pre>{{dinamicForm.pristine | json}}</pre>
+
+    <span><b>Errores</b></span>
+    <pre>{{dinamicForm.controls['nombre']?.errors | json}}</pre>
+    <pre>{{dinamicForm.controls['newGameData']?.errors | json}}</pre>
+
+    <span><b>Objetos</b></span>
+    <pre>{{dinamicForm.value | json}}</pre>
+    <pre>{{newGameData.valid| json}}</pre>
+  </div>
+</div>

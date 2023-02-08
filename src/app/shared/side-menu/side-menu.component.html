@@ -1,0 +1,25 @@
+<h2>Formularios Template</h2>
+
+<hr>
+
+<ul class="list-group">
+  <li *ngFor="let item of templateMenuItems"
+      class="list-group-item"
+      [routerLink]="[item.route]"
+      routerLinkActive="active">
+      {{item.text}}
+  </li>
+</ul>
+
+<h2 class="mt-5">Formularios Reactive</h2>
+
+<hr>
+
+<ul class="list-group">
+  <li *ngFor="let item of reactiveMenuItems"
+      class="list-group-item"
+      [routerLink]="[item.route]"
+      routerLinkActive="active">
+    {{item.text}}
+  </li>
+</ul>

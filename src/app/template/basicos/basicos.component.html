@@ -1,0 +1,88 @@
+<h2>Template : <small>básicos</small></h2>
+
+<hr>
+
+<div class="row">
+  <div class="col">
+    <form (ngSubmit)="saveProduct()" #myForm="ngForm" autocomplete="off">
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label" for="prodform">Producto</label>
+        <div class="col-sm-9" id="prodform">
+          <input type="text"
+                 class="form-control"
+                 placeholder="Nombre del producto"
+                 name="producto"
+                 [ngModel]="initialFormValue.producto"
+                 required
+                 minlength="3">
+          <span class="form-text text-danger"
+                *ngIf="isProductNameInvalid()">
+                El nombre debe contener 3 o más letras.
+          </span>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label" for="priceform">Precio</label>
+        <div class="col-sm-9" id="priceform" >
+          <input type="number"
+                 class="form-control"
+                 placeholder="Precio"
+                 name="precio"
+                 [ngModel]="initialFormValue.precio"
+                 required>
+          <span class="form-text text-danger"
+                *ngIf="isProductPriceInvalid()">
+                El precio debe de ser mayor o igual a $0.
+          </span>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label" for="existencesform">Existencias</label>
+        <div class="col-sm-9" id="existencesform">
+          <input type="number"
+                 class="form-control"
+                 placeholder="Existencias del producto"
+                 name="existencia"
+                 [ngModel]="initialFormValue.existencia"
+                 required
+                 customMinValue
+                 [minValue]="0">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button type="submit"
+                  [disabled]="myForm.invalid"
+                  class="btn btn-primary float-end">
+                  Guardar
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<h3>Datos del formulario</h3>
+<div class="row">
+  <div class="col">
+    <span><b>Valid <em>(el formulario es válido)</em></b></span>
+    <pre>{{myForm.valid | json}}</pre>
+
+    <span><b>Touched <em>(el usuario ha tocado el formulario)</em></b></span>
+    <pre>{{myForm.touched | json}}</pre>
+
+    <span><b>Pristine <em>(no se ha cambiado ningún valor desde el inicio)</em></b></span>
+    <pre>{{myForm.pristine | json}}</pre>
+
+    <span><b>Directiva Personalizada</b></span>
+    <pre>{{myForm.controls['existencia']?.errors | json}}</pre>
+
+    <span><b>Objeto</b></span>
+    <pre>{{myForm.value | json}}</pre>
+  </div>
+</div>
