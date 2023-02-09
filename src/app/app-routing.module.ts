@@ -9,6 +9,14 @@ const routes: Routes = [
   {
     path : 'reactive',
     loadChildren : () => import('./reactive/reactive.module').then(module => module.ReactiveModule)
+  },
+  {
+    path : 'validations',
+    loadChildren : () => import('./auth/auth.module').then(module => module.AuthModule)
+  },
+  {
+    path : '**',
+    redirectTo : 'template'
   }
 ];
 

@@ -1,0 +1,97 @@
+<div class="row">
+  <h2>Registro</h2>
+  <hr>
+  <div class="col">
+
+    <form autocomplete="off"
+          (ngSubmit)="saveData()"
+          [formGroup]="registerValidationForm">
+
+      <!--Nombre-->
+      <div class="row mb-3">
+        <div class="col-sm-3 col-form-label">Nombre</div>
+        <div class="col-sm-9">
+          <input type="text"
+                 class="form-control"
+                 placeholder="Nombre del usuario"
+                 formControlName="name">
+          <span class="form-text text-danger"
+                *ngIf="notValidInput('name')">
+            Deber ser en formato nombre y apellido
+          </span>
+        </div>
+      </div>
+
+      <!--Email-->
+      <div class="row mb-3">
+        <div class="col-sm-3 col-form-label">Email</div>
+        <div class="col-sm-9">
+          <input type="text"
+                 class="form-control"
+                 placeholder="Email del usuario"
+                 formControlName="email">
+        </div>
+      </div>
+
+      <!--Username-->
+      <div class="row mb-3">
+        <div class="col-sm-3 col-form-label">Username</div>
+        <div class="col-sm-9">
+          <input type="text"
+                 class="form-control"
+                 placeholder="Username del usuario"
+                 formControlName="username">
+        </div>
+      </div>
+
+      <!--Password-->
+      <div class="row mb-3">
+        <div class="col-sm-3 col-form-label">Password</div>
+        <div class="col-sm-9">
+          <input type="password"
+                 class="form-control"
+                 placeholder="Password del usuario"
+                 formControlName="password">
+        </div>
+      </div>
+
+      <!--Password2-->
+      <div class="row mb-3">
+        <div class="col-sm-3 col-form-label">Confirmar password</div>
+        <div class="col-sm-9">
+          <input type="password"
+                 class="form-control"
+                 placeholder="Confirmar password"
+                 formControlName="confirmPassword">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary float-end"
+                  type="submit">
+            Crear
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <h2>Form valid : {{registerValidationForm.valid}}</h2>
+
+    <h2>Nombre</h2>
+    <pre>{{registerValidationForm.controls['name']?.errors | json}}</pre>
+
+    <h2>Email</h2>
+    <pre>{{registerValidationForm.controls['email']?.errors | json}}</pre>
+
+    <h2>Username</h2>
+    <pre>{{registerValidationForm.controls['username']?.errors | json}}</pre>
+  </div>
+</div>
+
