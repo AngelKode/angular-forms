@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {FormControl, ValidationErrors} from "@angular/forms";
+import {FormControl, FormGroup, ValidationErrors} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +21,24 @@ export class ValidatorService {
     }
     return null;
   }
+
+  checkEqualInputPasswords(password :string, confirmPassword : string){
+    return (control : FormGroup) : ValidationErrors | null => {
+      const password_ = control.get(password)?.value;
+      const confirmPassword_ = control.get(confirmPassword)?.value;
+
+      if(password_ !== confirmPassword_){
+        control.get(confirmPassword)?.setErrors({
+          notSame : true
+        })
+        return {
+          notSame : true
+        }
+      }
+
+      control.get(confirmPassword)?.setErrors(null);
+      return null
+    }
+  }
+
 }

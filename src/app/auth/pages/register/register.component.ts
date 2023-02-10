@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ValidatorService} from "../../../shared/validator/validator.service";
+import {EmailValidatorService} from "../../../shared/validator/email-validator.service";
 
 @Component({
   selector: 'app-register',
@@ -15,30 +16,34 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       Validators.pattern(this.validator.namePattern)
     ]],
-    email : ['',[
-      Validators.required,
-      Validators.pattern(this.validator.emailPattern)
-    ],],
+    email : ['',
+      [
+        Validators.required,
+        Validators.pattern(this.validator.emailPattern)
+      ],
+      [this.emailValidator]
+    ],
     username : ['',[
       Validators.required,
       this.validator.checkUsername
     ]],
-    password : [''],
-    confirmPassword : ['']
+    password : ['',[
+      Validators.required,
+      Validators.minLength(6)
+    ]],
+    confirmPassword : ['',[
+      Validators.required,
+      Validators.minLength(6)
+    ]]
+  },{
+    validators : [this.validator.checkEqualInputPasswords('password','confirmPassword')]
   })
 
   constructor(private formBuilder : FormBuilder,
-              private validator : ValidatorService) { }
+              private validator : ValidatorService,
+              private emailValidator : EmailValidatorService) { }
 
-  ngOnInit(): void {
-    this.registerValidationForm.reset({
-      name            : 'Pedro Perez',
-      email           : 'lopes@hotmail.com',
-      username        : 'lopes',
-      password        : '',
-      confirmPassword : ''
-    })
-  }
+  ngOnInit(): void {}
 
   notValidInput(name : string){
     return this.registerValidationForm.get(name)?.invalid &&
@@ -51,6 +56,21 @@ export class RegisterComponent implements OnInit {
       return;
     }
     this.registerValidationForm.reset();
+  }
+
+  emailRequired(){
+    return this.registerValidationForm.get('email')?.errors?.['required']
+           && this.registerValidationForm.get('email')?.touched;
+  }
+
+  emailFormat(){
+    return this.registerValidationForm.get('email')?.errors?.['pattern']
+      && this.registerValidationForm.get('email')?.touched;
+  }
+
+  emailTaken(){
+    return this.registerValidationForm.get('email')?.errors?.['emailTaken']
+      && this.registerValidationForm.get('email')?.touched;
   }
 
 }

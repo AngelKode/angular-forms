@@ -30,6 +30,21 @@
                  class="form-control"
                  placeholder="Email del usuario"
                  formControlName="email">
+          <div class="spinner-border mt-2" role="status" *ngIf="registerValidationForm.pending">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <span class="form-text text-danger"
+                *ngIf="emailRequired()">
+            El correo es obligatorio
+          </span>
+          <span class="form-text text-danger"
+                *ngIf="emailFormat()">
+            Formato email incorrecto.
+          </span>
+          <span class="form-text text-warning"
+                *ngIf="emailTaken()">
+            Email no disponible.
+          </span>
         </div>
       </div>
 
@@ -52,6 +67,10 @@
                  class="form-control"
                  placeholder="Password del usuario"
                  formControlName="password">
+          <span class="form-text text-danger"
+                *ngIf="notValidInput('password')">
+            La contraseña tiene que tener 6 caractéres o más.
+          </span>
         </div>
       </div>
 
@@ -63,13 +82,18 @@
                  class="form-control"
                  placeholder="Confirmar password"
                  formControlName="confirmPassword">
+          <span class="form-text text-danger"
+                *ngIf="notValidInput('confirmPassword')">
+            Las contraseñas deben de ser iguales.
+          </span>
         </div>
       </div>
 
       <div class="row">
         <div class="col">
           <button class="btn btn-primary float-end"
-                  type="submit">
+                  type="submit"
+                  [disabled]="registerValidationForm.pending">
             Crear
           </button>
         </div>
@@ -84,6 +108,13 @@
   <div class="col">
     <h2>Form valid : {{registerValidationForm.valid}}</h2>
 
+    <h2>Form status : {{registerValidationForm.status}}</h2>
+
+    <h2>Form pending : {{registerValidationForm.pending}}</h2>
+
+    <h2>Form errors</h2>
+    <pre>{{registerValidationForm.errors | json}}</pre>
+
     <h2>Nombre</h2>
     <pre>{{registerValidationForm.controls['name']?.errors | json}}</pre>
 
@@ -92,6 +123,12 @@
 
     <h2>Username</h2>
     <pre>{{registerValidationForm.controls['username']?.errors | json}}</pre>
+
+    <h2>Password</h2>
+    <pre>{{registerValidationForm.controls['password']?.errors | json}}</pre>
+
+    <h2>Confirm Password</h2>
+    <pre>{{registerValidationForm.controls['confirmPassword']?.errors | json}}</pre>
   </div>
 </div>
 
